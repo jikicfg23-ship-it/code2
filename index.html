@@ -1,0 +1,103 @@
+<!DOCTYPE html> 
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة لَوْ.. | مواقف افتراضية</title>
+    <!-- استدعاء ملف التنسيق بعد تعديل اسمه وحذف المسافة -->
+    <link rel="stylesheet" href="style.css">
+    <!-- مكتبة FontAwesome لعرض الأيقونات التفاعلية للأزرار بشكل جذاب -->
+    <link rel="stylesheet" href="https://cloudflare.com">
+    
+    <!-- 1️⃣ [مكان إعلانات أدسينس المستقبلية - في رأس الصفحة] -->
+    <!-- مستقبلاً: الصق كود التفعيل التلقائي لجوجل أدسينس تحت هذا السطر مباشرة -->
+    <!-- <script async src="https://googlesyndication.com" crossorigin="anonymous"></script> -->
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- شاشة الإعداد -->
+        <div id="setup-screen" class="screen active">
+            <h1 class="game-title">🤔 لعبة لَوْ..</h1>
+            <p class="game-subtitle">مواقف افتراضية محرجة تكشف المستور وتتحكم في الخصوصية!</p>
+            
+            <div class="mode-selection">
+                <h3>اختر الفئة:</h3>
+                <!-- تم توسيع شبكة الفئات لتستوعب 5 فئات كاملة ومنظمة -->
+                <div class="modes-grid">
+                    <button class="mode-btn active" data-mode="all"><i class="fa-solid fa-fire"></i> الكل</button>
+                    <button class="mode-btn" data-mode="tech"><i class="fa-solid fa-laptop-code"></i> تكنولوجيا</button>
+                    <button class="mode-btn" data-mode="social"><i class="fa-solid fa-comments"></i> اجتماعي</button>
+                    <button class="mode-btn" data-mode="scandal"><i class="fa-solid fa-mask"></i> فضائح</button>
+                    <button class="mode-btn" data-mode="scifi"><i class="fa-solid fa-wand-magic-sparkles"></i> خيال علمي</button>
+                    <button class="mode-btn" data-mode="survival"><i class="fa-solid fa-person-shelter"></i> بقاء</button>
+                </div>
+            </div>
+
+            <div class="players-section">
+                <h3><i class="fa-solid fa-users"></i> اللاعبين:</h3>
+                <div id="players-list">
+                    <div class="player-input-group">
+                        <input type="text" class="player-input" placeholder="اسم اللاعب الأول...">
+                    </div>
+                    <div class="player-input-group">
+                        <input type="text" class="player-input" placeholder="اسم اللاعب الثاني...">
+                    </div>
+                </div>
+                <button id="add-player-btn" class="secondary-btn"><i class="fa-solid fa-plus"></i> إضافة لاعب جديد</button>
+            </div>
+
+            <!-- 2️⃣ [مكان إعلان مستقبلي في شاشة الإعداد] -->
+            <!-- <div class="ad-placeholder-setup">إعلان هنا مستقبلاً</div> -->
+
+            <button id="start-game-btn" class="primary-btn">ابدأ التحدي <i class="fa-solid fa-play"></i></button>
+        </div>
+
+        <!-- شاشة اللعب والـ 50 كارت -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <!-- زر العودة/الخروج: تم توضيح هويته بإضافة نص مفسر بجانب الأيقونة لتجنب اللبس -->
+                <button id="back-btn" class="icon-btn" title="خروج للقائمة الرئيسية"><i class="fa-solid fa-arrow-right"></i> خروج</button>
+                <div class="score-display" id="score-display">الموقف الحالي: 0</div>
+                <!-- زر الوضع الليلي: تم تجهيزه بأيقونة تفاعلية تتغير برمجياً وسنضيف لها تلميحاً ذكياً -->
+                <button id="theme-toggle" class="icon-btn" title="تغيير المظهر"><i class="fa-solid fa-moon"></i></button>
+            </div>
+
+            <div class="turn-announcement">
+                دور اللاعب: <span id="current-player-name">أحمد</span>
+            </div>
+
+            <!-- الكارت الأنيق -->
+            <div class="card-wrapper">
+                <div id="question-card" class="elegant-card">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-tag" id="card-category">لو.. 🤔</div>
+                        <p class="question-text" id="question-text">اضغط على التالي لسحب الموقف الأول!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3️⃣ [مكان إعلان مستقبلي أسفل كارت اللعب] -->
+            <!-- <div class="ad-placeholder-game">إعلان هنا مستقبلاً</div> -->
+
+            <div class="action-buttons">
+                <!-- زر الانسحاب: مجهز بلون تحذيري مميز ليعبر عن الانسحاب الفوري من الموقف -->
+                <button id="skip-btn" class="danger-btn"><i class="fa-solid fa-flag-checkered"></i> انسحاب</button>
+                <button id="next-btn" class="success-btn">الموقف التالي <i class="fa-solid fa-circle-chevron-left"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4️⃣ [مكان ربط Firebase مستقبلاً] -->
+    <!-- مستقبلاً: الصق كود تهيئة مكتبات وتسجيل دخول Firebase هنا قبل ملفاتك البرمجية -->
+    <!-- <script type="module"> -->
+    <!--   import { initializeApp } from "https://gstatic.com"; -->
+    <!--   // إعدادات مشروعك هنا... -->
+    <!-- </script> -->
+
+    <!-- استدعاء ملفات الجافاسكريبت بالأسماء الصحيحة الجديدة بدون مسافات -->
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
