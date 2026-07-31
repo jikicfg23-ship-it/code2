@@ -1,0 +1,390 @@
+/* ==========================================================================
+   1️⃣ الجزء الأول: المتغيرات البرمجية والألوان للأوضاع (الوضع المظلم الافتراضي)
+   ========================================================================== */
+:root {
+    --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    --container-bg: rgba(30, 41, 59, 0.7);
+    --card-bg: rgba(255, 255, 255, 0.06);
+    --card-border: rgba(255, 255, 255, 0.1);
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+    --accent-color: #ffd700;
+    --btn-primary: #6366f1;
+    --btn-primary-hover: #4f46e5;
+    --btn-secondary: rgba(255, 255, 255, 0.1);
+    --btn-secondary-hover: rgba(255, 255, 255, 0.2);
+    --btn-success: #10b981;
+    --btn-success-hover: #059669;
+    --btn-danger: #ef4444;
+    --btn-danger-hover: #dc2626;
+    --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --card-glow: rgba(99, 102, 241, 0.15);
+}
+
+/* ☀️ الألوان البديلة عند تفعيل الوضع المضيء (Light Theme) */
+body.light-theme {
+    --bg-gradient: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+    --container-bg: rgba(255, 255, 255, 0.85);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --card-border: rgba(0, 0, 0, 0.08);
+    --text-main: #0f172a;
+    --text-sub: #475569;
+    --accent-color: #d97706;
+    --btn-primary: #4f46e5;
+    --btn-primary-hover: #4338ca;
+    --btn-secondary: rgba(0, 0, 0, 0.05);
+    --btn-secondary-hover: rgba(0, 0, 0, 0.1);
+    --shadow: 0 8px 32px 0 rgba(148, 163, 184, 0.2);
+    --card-glow: rgba(0, 0, 0, 0.03);
+}
+
+/* ==========================================================================
+   2️⃣ الجزء الثاني: الهيكل الأساسي، الأزرار، والأنيميشن التفاعلي
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-tap-highlight-color: transparent; /* إزالة اللون الأزرق عند اللمس في الموبايل */
+}
+
+body {
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+    padding: 15px;
+}
+
+/* 📦 الحاوية الرئيسية للعبة */
+.game-container {
+    background: var(--container-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--card-border);
+    border-radius: 24px;
+    padding: 25px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* 🖥️ التحكم في الشاشات (تنقل سلس) */
+.screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.screen.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 🏠 شاشة الإعداد الأولى (Setup Screen) */
+.game-title {
+    font-size: 2.2rem;
+    text-align: center;
+    margin-bottom: 8px;
+    color: var(--text-main);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.game-subtitle {
+    font-size: 0.95rem;
+    text-align: center;
+    color: var(--text-sub);
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.mode-selection h3, .players-section h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 🎛️ شبكة اختيار الفئات الـ 5 الممتدة */
+.modes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+/* جعل زر "الكل" يأخذ السطر كاملاً بشكل عريض */
+.modes-grid .mode-btn[data-mode="all"] {
+    grid-column: span 2;
+}
+
+.mode-btn {
+    background: var(--btn-secondary);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.mode-btn:hover {
+    background: var(--btn-secondary-hover);
+    transform: translateY(-2px);
+}
+
+.mode-btn.active {
+    background: var(--btn-primary);
+    border-color: var(--btn-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+}
+
+/* 👥 قسم مدخلات أسماء اللاعبين */
+.players-section {
+    margin-bottom: 25px;
+}
+
+#players-list {
+    max-height: 160px;
+    overflow-y: auto;
+    padding-right: 5px;
+    margin-bottom: 12px;
+}
+
+#players-list::-webkit-scrollbar {
+    width: 6px;
+}
+#players-list::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 10px;
+}
+
+.player-input-group {
+    margin-bottom: 10px;
+    animation: fadeIn 0.3s ease;
+}
+
+.player-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--card-border);
+    padding: 12px 15px;
+    border-radius: 12px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+body.light-theme .player-input {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.player-input:focus {
+    border-color: var(--btn-primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* 🎮 شاشة اللعب والكرت التفاعلي (Game Screen) */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.score-display {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    background: var(--btn-secondary);
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--card-border);
+}
+
+.icon-btn {
+    background: var(--btn-secondary);
+    border: 1px solid var(--card-border);
+    color: var(--text-main);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 1rem;
+}
+
+#back-btn {
+    width: auto;
+    height: auto;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    gap: 6px;
+}
+
+.icon-btn:hover {
+    background: var(--btn-secondary-hover);
+    transform: scale(1.05);
+}
+
+.turn-announcement {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    color: var(--text-sub);
+}
+
+#current-player-name {
+    color: var(--btn-primary);
+    font-weight: 800;
+    font-size: 1.3rem;
+    text-decoration: underline;
+}
+
+/* 🃏 تأثير التوهج والكرت الزجاجي الأنيق */
+.card-wrapper {
+    perspective: 1000px;
+    margin-bottom: 25px;
+}
+
+.elegant-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 35px 25px;
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    background: var(--card-glow);
+    filter: blur(50px);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.card-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+}
+
+.card-tag {
+    font-size: 0.85rem;
+    font-weight: 800;
+    background: var(--btn-primary);
+    color: #ffffff;
+    padding: 5px 12px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.question-text {
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--text-main);
+    word-wrap: break-word;
+}
+
+/* 🔘 تصاميم الأزرار التشغيلية (Buttons) */
+.primary-btn, .secondary-btn, .success-btn, .danger-btn {
+    width: 100%;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.primary-btn { background: var(--btn-primary); color: white; }
+.primary-btn:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
+
+.secondary-btn { background: var(--btn-secondary); color: var(--text-main); border: 1px solid var(--card-border); font-size: 0.95rem; padding: 10px 15px; }
+.secondary-btn:hover { background: var(--btn-secondary-hover); }
+
+.action-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.success-btn { background: var(--btn-success); color: white; flex: 2; }
+.success-btn:hover { background: var(--btn-success-hover); transform: translateY(-2px); }
+
+.danger-btn { background: var(--btn-danger); color: white; flex: 1; font-size: 0.95rem; }
+.danger-btn:hover { background: var(--btn-danger-hover); transform: translateY(-2px); }
+
+/* 🎬 الحركات والأنيميشن التفاعلي (Animations) */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-bounce {
+    animation: cardBounceAnim 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cardBounceAnim {
+    0% { transform: scale(0.9) rotate(-1deg); opacity: 0.7; }
+    50% { transform: scale(1.02) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+/* 📢 أماكن الإعلانات المستقبلية المجهزة مسبقاً للـ CSS */
+.ad-placeholder-setup, .ad-placeholder-game {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px dashed var(--card-border);
+    border-radius: 12px;
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    margin: 15px 0;
+    display: none;
+}
